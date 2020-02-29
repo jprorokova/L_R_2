@@ -37,9 +37,37 @@ void delete_array(int* result)
 	delete[] result;
 }
 
-void processing_data()
+void processing_data(int*** arr, int games, int teams, int competitors, int* results)
 {
+	for (int i = 0; i < teams; i++)
+	{
 
+		for (int j = 0; j < games; j++)
+		{
+
+			for (int k = 0; k < competitors; k++)
+			{
+				if (arr[i][j][k] > arr[i][j][k + 1]) {
+					results[i] += 3;
+				}
+				if (arr[i][j][k] = arr[i][j][k + 1]) {
+					results[i] += 1;
+				}
+
+
+			}
+
+		}
+
+	}
+}
+void output_results(int*** arr, int games, int team, int competitors, int* results, string* teams) {
+	for (int i = 0; i < team; i++)
+	{
+		cout << teams[i] << " : " << results[i] << endl;
+
+
+	}
 }
 
 void input_to_file_data()

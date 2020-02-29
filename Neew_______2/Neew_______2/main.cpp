@@ -44,6 +44,8 @@ int main() {
 
 	data_processing(teams, arr, games, competitors, sum, file);
 	output_data(teams, arr,games , competitors, sum);
+	processing_data(arr, games,sum, competitors, results);
+	output_results(arr, games, sum, competitors,  results, teams);
 	delete_dynamic(arr, games, sum);
 	delete_array(teams);
 
