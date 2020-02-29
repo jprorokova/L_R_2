@@ -1,0 +1,5 @@
+﻿  foo.cpp
+  main.cpp
+  Generating Code...
+C:\Users\jpror\OneDrive\Документы\GitHub\OP_2\Neew_______2\Neew_______2\foo.cpp(76,33): warning C4018: '<': signed/unsigned mismatch
+  Neew_______2.vcxproj -> C:\Users\jpror\OneDrive\Документы\GitHub\OP_2\Neew_______2\Debug\Neew_______2.exe
