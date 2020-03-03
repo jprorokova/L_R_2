@@ -1,5 +1,3 @@
 ﻿  foo.cpp
-  main.cpp
-  Generating Code...
-C:\Users\jpror\OneDrive\Документы\GitHub\OP_2\Neew_______2\Neew_______2\foo.cpp(76,33): warning C4018: '<': signed/unsigned mismatch
-  Neew_______2.vcxproj -> C:\Users\jpror\OneDrive\Документы\GitHub\OP_2\Neew_______2\Debug\Neew_______2.exe
+C:\Users\alexe\Desktop\OOP\laba2.1\Neew_______2\Neew_______2\foo.cpp(108,33): warning C4018: <: несоответствие типов со знаком и без знака
+  Neew_______2.vcxproj -> C:\Users\alexe\Desktop\OOP\laba2.1\Neew_______2\Debug\Neew_______2.exe

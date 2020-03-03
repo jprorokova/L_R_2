@@ -3,6 +3,10 @@
 #include<iostream>
 #include<string>
 #include <sstream> 
+#include <direct.h>
+#include <io.h>
+#include <windows.h>
+#include <TlHelp32.h>
 using namespace std;
 
 
@@ -109,4 +113,30 @@ void data_processing(string* team, int ***arr, int games, int result, int sum_of
 		}
 	}
 	file.close();
+}
+
+void Dir( )
+{
+	setlocale(LC_ALL, "Russian");
+
+	WIN32_FIND_DATAA findData;
+	HANDLE hf;
+
+	hf = FindFirstFileA("Teams\\*.csv", &findData);
+
+	if (hf == INVALID_HANDLE_VALUE)
+	{
+		cout << "Cannot find file" << endl;
+	}
+	int k = 0;
+	do
+	{
+		
+		cout << findData.cFileName << endl;
+
+	} while (FindNextFileA(hf, &findData));
+
+
+	FindClose(hf);
+
 }

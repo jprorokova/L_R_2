@@ -2,9 +2,14 @@
 #include <fstream>
 #include<iostream>
 #include<string>
+#include <sstream> 
+#include <direct.h>
+#include <io.h>
+#include <windows.h>
+#include <TlHelp32.h>
 using namespace std;
 
-
+void Dir();
 void create_dynamic(int** arr, int games, int competitors);
 void output_data(string* team, int*** arr, int games, int competitors, int teams);
 void data_processing(string* str, int*** arr, int games, int competitors, int teams, ifstream& file);
