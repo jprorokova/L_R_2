@@ -14,15 +14,11 @@ using namespace std;
 int main() {
 	setlocale(0, "russian");
 
-	Dir();
-
-
-	ifstream file("data.csv");
-	int sum=0;
+	int sum = 0;
 	int games = 10;
 	int competitors = 2;
-	file >> sum;
-
+	sum = team_numbers();
+	
 	string* teams = new string[sum];
 	int*** arr = new int** [sum];
 	int* results = new int[sum]{};
@@ -33,10 +29,10 @@ int main() {
 		create_dynamic(arr[i], 10, 2);
 	}
 
-	data_processing(teams, arr, games, competitors, sum, file);
-	output_data(teams, arr,games , competitors, sum);
-	processing_data(arr, games,sum, competitors, results);
-	output_results(arr, games, sum, competitors,  results, teams);
+	Dir(sum, games, competitors, teams, arr, results);
+	shell_sort(results, sum);
+	output_results(arr, games, competitors, results, teams, sum);
+	input_data(teams, sum, results);
 	delete_dynamic(arr, games, sum);
 	delete_array(teams);
 

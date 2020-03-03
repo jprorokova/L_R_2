@@ -1,3 +1,6 @@
 ﻿  foo.cpp
-C:\Users\alexe\Desktop\OOP\laba2.1\Neew_______2\Neew_______2\foo.cpp(108,33): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\alexe\Desktop\OOP\laba2.1\Neew_______2\Neew_______2\foo.cpp(89,33): warning C4018: <: несоответствие типов со знаком и без знака
+  main.cpp
+  Создание кода...
+C:\Users\alexe\Desktop\OOP\laba2.1\Neew_______2\Neew_______2\foo.cpp(133): warning C4715: Dir: значение возвращается не при всех путях выполнения
   Neew_______2.vcxproj -> C:\Users\alexe\Desktop\OOP\laba2.1\Neew_______2\Debug\Neew_______2.exe

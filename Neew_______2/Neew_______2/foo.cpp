@@ -41,9 +41,9 @@ void delete_array(int* result)
 	delete[] result;
 }
 
-void processing_data(int*** arr, int games, int teams, int competitors, int* results)
+void data_points(int*** arr, int games, int competitors, int* results, int from, int to)
 {
-	for (int i = 0; i < teams; i++)
+	for (int i = from; i < to; i++)
 	{
 
 		for (int j = 0; j < games; j++)
@@ -65,8 +65,10 @@ void processing_data(int*** arr, int games, int teams, int competitors, int* res
 
 	}
 }
-void output_results(int*** arr, int games, int team, int competitors, int* results, string* teams) {
-	for (int i = 0; i < team; i++)
+void output_results(int*** arr, int games, int competitors, int* results, string* teams, int sum) //вывод
+{
+	cout << "Результати: " << endl;
+	for (int i = 0; i < sum; i++)
 	{
 		cout << teams[i] << " : " << results[i] << endl;
 
@@ -74,33 +76,12 @@ void output_results(int*** arr, int games, int team, int competitors, int* resul
 	}
 }
 
-void input_to_file_data()
-{
 
-}
 
-void output_data(string* team, int ***arr, int games, int results, int teams)
-{
-	for (int i = 0; i < teams; i++)
-	{
-		cout << team[i] << endl;
-		for (int j = 0; j < games; j++)
-		{
-			cout << "game № " << j+1<<endl;
-			for (int k = 0; k < results; k++)
-			{
-				cout << arr[i][j][k]<<ends;
-			}
-			cout << endl;
-		}
-		cout << endl << endl;
-	}
-}
-
-void data_processing(string* team, int ***arr, int games, int result, int sum_of_teams, ifstream &file)
+void data_processing(string* team, int ***arr, int games, int result, ifstream &file, int from, int to)
 {
 	char subline[100];
-	for (int i = 0; i < sum_of_teams; i++)
+	for (int i = from; i <to; i++)
 	{
 		getline(file, team[i], ',');
 		file >> subline;
@@ -115,28 +96,98 @@ void data_processing(string* team, int ***arr, int games, int result, int sum_of
 	file.close();
 }
 
-void Dir( )
+int Dir(int sum, int games, int competitors, string* teams, int ***arr, int * results)//обработка 
 {
+	int from = 0; int p;
+	int to=0;
 	setlocale(LC_ALL, "Russian");
 
 	WIN32_FIND_DATAA findData;
 	HANDLE hf;
-
+	string name;
 	hf = FindFirstFileA("Teams\\*.csv", &findData);
 
 	if (hf == INVALID_HANDLE_VALUE)
 	{
 		cout << "Cannot find file" << endl;
+		return -1;
+	}
+	do
+	{
+		name = findData.cFileName;
+		ifstream file("Teams\\"+name);
+		file >>p ;
+		to += p;
+
+
+		data_processing(teams, arr, games, competitors, file, from, to);
+		data_points(arr, games, competitors, results, from, to);
+	
+		from += to;
+	} while (FindNextFileA(hf, &findData));
+	
+
+	FindClose(hf);
+	
+
+}
+
+int team_numbers()//подсчет всех команд
+{
+	int num=0;
+	int sum=0;
+	string name;
+	setlocale(LC_ALL, "Russian");
+
+	WIN32_FIND_DATAA findData;
+	HANDLE hf;
+	hf = FindFirstFileA("Teams\\*.csv", &findData);
+
+	if (hf == INVALID_HANDLE_VALUE)
+	{
+		cout << "Cannot find file" << endl;
+		return -1;
 	}
 	int k = 0;
 	do
 	{
-		
-		cout << findData.cFileName << endl;
+		name = findData.cFileName;
+		ifstream file("Teams\\" + name);
+		file >> num;
+		sum+=num;
+		file.close();
 
 	} while (FindNextFileA(hf, &findData));
 
 
 	FindClose(hf);
+	return sum;
+}
 
+void shell_sort(int* results, int size)//сортировка
+{
+	for (int d = size / 2; d >= 1; d /= 2)
+	{
+		for (int i = d; i < size; i++)
+		{
+			int j = i;
+			
+			while (j >= d && results[j - d] <results[j])
+			{
+				swap(results[j], results[j - d]);
+				j -= d;
+			}
+		}
+
+	}
+}
+
+void input_data(string *teams, int sum, int * result)
+{
+	ofstream file("Result\\results.csv");
+	for (int i = 0; i < sum; i++)
+	{
+		file << teams[i] << "," << result[i];
+	}
+	
 }
