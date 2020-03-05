@@ -7,6 +7,7 @@
 #include <io.h>
 #include <windows.h>
 #include <TlHelp32.h>
+#include <vector>
 using namespace std;
 
 
@@ -65,9 +66,9 @@ void data_points(int*** arr, int games, int competitors, int* results, int from,
 
 	}
 }
-void output_results(int*** arr, int games, int competitors, int* results, string* teams, int sum) //вывод
+void output_results(int*** arr, int games, int competitors, int* results, string* teams, int sum) //РІС‹РІРѕРґ
 {
-	cout << "Результати: " << endl;
+	cout << "Р РµР·СѓР»СЊС‚Р°С‚Рё: " << endl;
 	for (int i = 0; i < sum; i++)
 	{
 		cout << teams[i] << " : " << results[i] << endl;
@@ -78,25 +79,69 @@ void output_results(int*** arr, int games, int competitors, int* results, string
 
 
 
-void data_processing(string* team, int ***arr, int games, int result, ifstream &file, int from, int to)
+void data_processing(int sum, string* team, int*** arr, int games, int result, ifstream& file, int from, int to)
 {
-	char subline[100];
-	for (int i = from; i <to; i++)
+	int*** arr_v = new int** [sum];
+	for (int i = 0; i < sum; i++)
+	{
+		arr_v[i] = new int* [10];
+		create_dynamic(arr_v[i], 10, 2);
+	}
+	//char subline[100];
+	for (int i = from; i < to; i++)
 	{
 		getline(file, team[i], ',');
-		file >> subline;
+		/*file >> subline;
 
 		for (int j=0,f=0; j < games, f<strlen(subline) ; j++, f+=4)
 		{
 			arr[i][j][0] = int(subline[f]) - 48;
 			arr[i][j][1] = int(subline[f+2])-48;
+
+		}*/
+		string line;
+		getline(file, line);
+		istringstream in(line);
+		for (int j = 0; j < games; j++)
+		{
+
+			for (int l = 0; l < 4; l++) {
+				if (in >> arr[i][j][l]) {
+
+				}
+				else {
+
+					in.clear();
+					in.ignore();
+				}
+
+
+				//cout << i << j << l << " = " << arr[i][j][l] << "   ";
+				//cout << arr_v[i][j][l] << "   ";
+
+
+
+
+			}
+			cout << endl;
+		}
+
+	}
+	for (int i = from; i < to; i++) {
+		for (int j = 0; j < games; j++) {
+			for (int l = 0, k = 0; l < 4, k < 2; l += 2, k++) {
+				arr[i][j][k] = arr[i][j][l];
+				cout << arr[i][j][k] << "   ";
+			}
+			cout << endl;
 			
 		}
 	}
 	file.close();
+
 }
 
-int Dir(int sum, int games, int competitors, string* teams, int ***arr, int * results)//обработка 
+int Dir(int sum, int games, int competitors, string* teams, int ***arr, int * results)//РѕР±СЂР°Р±РѕС‚РєР° 
 {
 	int from = 0; int p;
 	int to=0;
@@ -120,7 +165,7 @@ int Dir(int sum, int games, int competitors, string* teams, int ***arr, int * re
 		to += p;
 
 
-		data_processing(teams, arr, games, competitors, file, from, to);
+		data_processing(sum,teams, arr, games, competitors, file, from, to);
 		data_points(arr, games, competitors, results, from, to);
 	
 		from += to;
@@ -132,7 +177,7 @@ int Dir(int sum, int games, int competitors, string* teams, int ***arr, int * re
 
 }
 
-int team_numbers()//подсчет всех команд
+int team_numbers()//РїРѕРґСЃС‡РµС‚ РІСЃРµС… РєРѕРјР°РЅРґ
 {
 	int num=0;
 	int sum=0;
@@ -164,7 +209,7 @@ int team_numbers()//подсчет всех команд
 	return sum;
 }
 
-void shell_sort(int* results, int size)//сортировка
+void shell_sort(int* results, int size)//СЃРѕСЂС‚РёСЂРѕРІРєР°
 {
 	for (int d = size / 2; d >= 1; d /= 2)
 	{
